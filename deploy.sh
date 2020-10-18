@@ -8,7 +8,9 @@ function main {
   log INFO "Hello, world!"
 
   require_command "heroku"
-  heroku apps:create "github-actions-to-heroku-${ENV}"
+
+  local -r heroku_app="github-actions-to-heroku-${ENV}"
+  heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
 }
 
 function require_command {
