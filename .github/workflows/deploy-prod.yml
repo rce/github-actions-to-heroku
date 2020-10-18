@@ -1,0 +1,14 @@
+name: Deploy green-dev to prod
+
+on: {workflow_dispatch]
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "green-dev"
+      - name: Run deployment
+        run: ./deploy-prod.sh
