@@ -16,7 +16,7 @@ jobs:
       - name: Run deployment
         run: ./deploy-dev.sh
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_API_KEY: "${{ secrets.HEROKU_API_KEY }}"
       - name: Tag successful deployment
         run: |
           function force_push_tag {
