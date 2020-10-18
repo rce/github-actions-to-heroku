@@ -16,6 +16,10 @@ jobs:
         run: ./deploy-prod.sh
       - name: Tag successful deployment
         run: |
-          git tag "green-prod-$( date +"%Y%m%d%H%M%S" )"
-          git tag "green-prod"
-          git push --tags --force
+          function force_push_tag {
+            local -r tag="$1"
+            git tag "$tag"
+            git push --force origin "refs/tags/$tag:refs/tags/$tag"
+          }
+          force_push_tag "green-prod-$( date +"%Y%m%d%H%M%S" )"
+          force_push_tag "green-prod"
