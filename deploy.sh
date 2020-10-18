@@ -13,7 +13,7 @@ function main {
   heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
 
   log INFO "Pushing commit $( git rev-parse HEAD ) to Heroku"
-  git push heroku HEAD:master
+  git push "https://:${HEROKU_API_KEY}@git.heroku.com/${heroku_app}.git" HEAD:master
 
   log INFO "Deployment complete"
 }
