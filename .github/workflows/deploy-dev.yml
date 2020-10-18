@@ -22,5 +22,5 @@ jobs:
             git tag "$tag"
             git push --force origin "refs/tags/$tag:refs/tags/$tag"
           }
-          force_push_tag "green-prod-$( date +"%Y%m%d%H%M%S" )"
-          force_push_tag "green-prod"
+          force_push_tag "green-dev-$( date +"%Y%m%d%H%M%S" )"
+          force_push_tag "green-dev"
