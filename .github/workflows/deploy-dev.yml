@@ -13,3 +13,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run deployment
         run: ./deploy-dev.sh
+      - name: Tag successful deployment
+        run: |
+          git tag "green-dev-$( date +"%Y%m%d%H%M%S" )"
+          git tag "green-dev"
+          git push --tags
