@@ -23,7 +23,7 @@ jobs:
         run: |
           function force_push_tag {
             local -r tag="$1"
-            git tag "$tag"
+            git tag --force "$tag"
             git push --force origin "refs/tags/$tag:refs/tags/$tag"
           }
           force_push_tag "green-dev-$( date +"%Y%m%d%H%M%S" )"
