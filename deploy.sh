@@ -11,6 +11,11 @@ function main {
 
   local -r heroku_app="github-actions-to-heroku-${ENV}"
   heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
+
+  log INFO "Pushing commit $( git rev-parse HEAD ) to Heroku"
+  git push heroku HEAD:master
+
+  log INFO "Deployment complete"
 }
 
 function require_command {
