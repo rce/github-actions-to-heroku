@@ -6,6 +6,18 @@ readonly SCRIPT_NAME="$( basename "$0" )"
 function main {
   parse_env_from_symlink_name
   log INFO "Hello, world!"
+
+  require_command "heroku"
+  heroku apps:create "github-actions-to-heroku-${ENV}"
+}
+
+function require_command {
+  local -r name="$1"
+
+  if [[ ! $( command -v "$name" ) ]]; then
+    log ERROR "The command '$name' is required"
+    exit 1
+  fi
 }
 
 function log {
