@@ -12,6 +12,9 @@ function main {
   local -r heroku_app="github-actions-to-heroku-${ENV}"
   heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
 
+  heroku addons:create heroku-postgresql:hobby-dev \
+    --app "$heroku_app" --name possukka --wait
+
   log INFO "Pushing commit $( git rev-parse HEAD ) to Heroku"
   git push --force "https://blank:${HEROKU_API_KEY}@git.heroku.com/${heroku_app}.git" HEAD:refs/heads/master
 
