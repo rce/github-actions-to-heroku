@@ -10,7 +10,9 @@ function main {
   require_command "heroku"
 
   local -r heroku_app="github-actions-to-heroku-${ENV}"
+  local -r eu_heroku_app="github-actions-to-heroku-eu-${ENV}"
   heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
+  heroku fork --from "$heroku_app" --to "$eu_heroku_app" --regiun eu
 
   log INFO "Pushing commit $( git rev-parse HEAD ) to Heroku"
   git push --force "https://blank:${HEROKU_API_KEY}@git.heroku.com/${heroku_app}.git" HEAD:refs/heads/master
