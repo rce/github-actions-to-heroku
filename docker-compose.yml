@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:11
+    ports:
+      - 5555:5432
+    environment:
+      POSTGRES_DB: possu
+      POSTGRES_USER: possu
+      POSTGRES_PASSWORD: possu
