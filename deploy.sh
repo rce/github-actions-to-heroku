@@ -12,13 +12,25 @@ function main {
   local -r heroku_app="github-actions-to-heroku-${ENV}"
   heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
 
-  heroku addons:create heroku-postgresql:hobby-dev \
-    --app "$heroku_app" --name possukka --wait
+  if ! app_has_addon_with_name $heroku_app possukka; then
+    log INFO "Creating postgresql addon with name possukka"
+    heroku addons:create heroku-postgresql:hobby-dev \
+      --app "$heroku_app" --name possukka --wait
+  else
+    log INFO "postgresql addon with name already exists"
+  fi
 
+  exit
   log INFO "Pushing commit $( git rev-parse HEAD ) to Heroku"
   git push --force "https://blank:${HEROKU_API_KEY}@git.heroku.com/${heroku_app}.git" HEAD:refs/heads/master
 
   log INFO "Deployment complete"
+}
+
+function app_has_addon_with_name {
+  local -r app="$1"
+  local -r addon="$2"
+  heroku addons --app "$app" | grep -q "\($addon\)"
 }
 
 function require_command {
