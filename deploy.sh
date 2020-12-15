@@ -12,11 +12,6 @@ function main {
   local -r heroku_app="github-actions-to-heroku-${ENV}"
   heroku apps:create $heroku_app || heroku git:remote --app="$heroku_app"
 
-  heroku addons --app "$heroku_app"
-  if app_has_addon_with_name $heroku_app possukka; then
-    heroku addons:destroy heroku-postgresql --app "$heroku_app" --confirm="$heroku_app"
-  fi
-
   local -r postgres_name="possukka-$ENV"
   if ! app_has_addon_with_name $heroku_app "$postgres_name"; then
     log INFO "Creating postgresql addon with name '$postgres_name'"
