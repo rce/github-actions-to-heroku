@@ -2,8 +2,9 @@ name: Deploy green-dev to qa
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [trigger-deploy-qa]
+  push:
+    tags:
+      - green-dev
 
 jobs:
   deploy:
