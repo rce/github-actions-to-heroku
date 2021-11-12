@@ -1,4 +1,5 @@
 name: Deploy green-dev to qa
+concurrency: deploy-qa
 
 on: [workflow_dispatch]
 
