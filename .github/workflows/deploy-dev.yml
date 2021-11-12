@@ -1,4 +1,5 @@
 name: Deploy master to dev
+concurrency: deploy-dev
 
 on:
   push:
