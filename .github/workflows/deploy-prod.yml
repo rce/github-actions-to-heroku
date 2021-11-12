@@ -1,4 +1,5 @@
 name: Deploy green-qa to prod
+concurrency: deploy-prod
 
 on: [workflow_dispatch]
 
