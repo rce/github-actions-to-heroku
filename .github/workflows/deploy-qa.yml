@@ -1,13 +1,23 @@
 name: Deploy green-dev to qa
 concurrency: deploy-qa
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      is_dispatch:
+        required: false
+        default: "true"
+  workflow_run:
+    workflows: ["Deploy master to dev"]
+    types: [completed]
 
 jobs:
   deploy:
     strategy:
       max-parallel: 1
     runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event.inputs.dispatch }}
 
     steps:
       - uses: actions/checkout@v2
